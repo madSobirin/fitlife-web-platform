@@ -1,0 +1,61 @@
+// src/app/api/auth/register/route.ts
+import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
+import prisma from "@/lib/prisma";
+
+export async function POST(request) {
+  try {
+    const body = await request.json();
+    const { name, email, password, role } = body;
+
+    // 1. Validasi input sederhana
+    if (!name || !email || !password) {
+      return NextResponse.json(
+        { message: "Nama, Email, dan Password wajib diisi" },
+        { status: 400 },
+      );
+    }
+
+    // 2. Cek apakah email sudah ada
+    const existingUser = await prisma.users.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return NextResponse.json(
+        { message: "Email sudah terdaftar" },
+        { status: 400 },
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await prisma.users.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+        role: role || "user",
+      },
+    });
+
+    return NextResponse.json(
+      {
+        message: "User created successfully",
+        data: {
+          id: newUser.id,
+          name: newUser.name,
+          email: newUser.email,
+          role: newUser.role,
+        },
+      },
+      { status: 201 },
+    );
+  } catch (error) {
+    console.error("Register Error:", error);
+    return NextResponse.json(
+      { message: "Terjadi kesalahan server" },
+      { status: 500 },
+    );
+  }
+}

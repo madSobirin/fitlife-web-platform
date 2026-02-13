@@ -17,6 +17,14 @@ export async function POST(request) {
         { status: 400 },
       );
     }
+    // Validasi panjang password minimal 8 karakter
+    if (password.length < 8) {
+      return NextResponse.json(
+        { message: "Password minimal 8 karakter" },
+        { status: 400 },
+      );
+    }
+    // End validasi
 
     // 2. Cek apakah email sudah ada
     const existingUser = await prisma.users.findUnique({

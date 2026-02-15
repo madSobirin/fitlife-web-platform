@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@theme {
+  /* admin dashboard */
+  --color-primary: #1ae073;
+  --color-background-light: #f6f8f7;
+  --color-background-dark: #112118;
+
+  --font-display: "Inter", sans-serif;
+  --radius-xl: 0.75rem;
+}
+
+@layer utilities {
+  .material-symbols-outlined {
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
+    vertical-align: middle;
+  }
+  /* end     */
+}

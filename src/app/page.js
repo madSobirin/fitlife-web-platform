@@ -788,7 +788,7 @@ export default function AdminDashboard() {
                 >
                   New Sign-ups
                 </h3>
-                <span className="size-6 bg-gradient-to-br from-emerald-400 to-green-600 text-white text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">
+                <span className="size-6 bg-linear-to-br from-emerald-400 to-green-600 text-white text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">
                   5
                 </span>
               </div>

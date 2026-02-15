@@ -29,12 +29,8 @@ export const useLogin = () => {
 
     try {
       // Panggil Service
-      const response = await loginUser(formData);
-
-      if (response.token) {
-        localStorage.setItem("token", response.token);
-        localStorage.setItem("user", JSON.stringify(response.user));
-      }
+      // Cookie token otomatis di-set oleh API route (server-side, httpOnly)
+      await loginUser(formData);
 
       alert("Login Berhasil! Mengalihkan...");
       router.push("/");

@@ -41,10 +41,9 @@ export async function POST(request) {
       { expiresIn: "3d" }, // Token berlaku 3 hari
     );
 
-    // 4. Response Sukses
-    return NextResponse.json({
+    // 4. Response Sukses + Set Cookie
+    const res = NextResponse.json({
       message: "Login berhasil",
-      token: token,
       user: {
         id: user.id,
         name: user.name,
@@ -52,6 +51,17 @@ export async function POST(request) {
         role: user.role,
       },
     });
+
+    // Set token sebagai httpOnly cookie (tidak bisa diakses JavaScript)
+    res.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 3 * 24 * 60 * 60, // 3 hari dalam detik
+      path: "/",
+    });
+
+    return res;
   } catch (error) {
     console.error("Login Error:", error);
     return NextResponse.json(

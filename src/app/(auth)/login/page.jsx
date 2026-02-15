@@ -1,12 +1,11 @@
-import React from "react";
+"use client";
 import Link from "next/link";
-
-export const metadata = {
-  title: "Login Page",
-  description: "Login Page",
-};
+import { useSearchParams } from "next/navigation";
 
 const Login = () => {
+  const searchParams = useSearchParams();
+  const registered = searchParams.get("registered");
+
   return (
     <div>
       <div className="flex min-h-screen items-center justify-center">
@@ -15,6 +14,13 @@ const Login = () => {
           className="flex flex-col gap-5 bg-gray-300 p-4 rounded-2xl"
         >
           <h1 className="text-2xl font-bold text-center">Login</h1>
+
+          {registered && (
+            <p className="text-green-600 text-sm text-center">
+              ✅ Akun berhasil dibuat, silakan login
+            </p>
+          )}
+
           <input
             type="email"
             placeholder="Email"

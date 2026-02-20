@@ -28,7 +28,7 @@ export default function Register() {
       {/* LEFT SIDE */}
       <div className="hidden lg:flex w-1/2 relative items-center justify-center bg-[#f0fdf4]">
         {/* Background effect */}
-        <div className="absolute inset-0 skew-x-[-6deg] bg-[#e6f9ee] origin-top-left -ml-20 w-[120%]" />
+        <div className="absolute inset-0 -skew-x-6 bg-[#e6f9ee] origin-top-left -ml-20 w-[120%]" />
 
         <div className="relative z-10 flex flex-col items-center text-center space-y-8 px-16">
           {/* IMAGE */}

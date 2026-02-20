@@ -27,7 +27,7 @@ export async function POST(request) {
     // End validasi
 
     // 2. Cek apakah email sudah ada
-    const existingUser = await prisma.users.findUnique({
+    const existingUser = await prisma.account.findUnique({
       where: { email },
     });
 
@@ -40,9 +40,9 @@ export async function POST(request) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = await prisma.users.create({
+    const newUser = await prisma.account.create({
       data: {
-        name,
+        username: name,
         email,
         password: hashedPassword,
         role: role || "user",
@@ -53,8 +53,8 @@ export async function POST(request) {
       {
         message: "User created successfully",
         data: {
-          id: newUser.id,
-          name: newUser.name,
+          id: newUser.id.toString(),
+          username: newUser.username,
           email: newUser.email,
           role: newUser.role,
         },

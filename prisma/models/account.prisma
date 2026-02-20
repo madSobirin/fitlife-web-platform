@@ -1,5 +1,5 @@
 model Account {
-  id BigInt @id @default(autoincrement())
+  id           BigInt    @id @default(autoincrement())
 
   nama_lengkap String?
   username     String  @unique
